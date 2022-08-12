@@ -5,25 +5,36 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Ayobola Coffee World\n");
-            Console.WriteLine("What type of coffee do you want\n");
-            Console.WriteLine("Enter 1 for Filtered Coffee\n");
-            Console.WriteLine("Enter 2 for Unfiltered Coffee\n");
+           
             //it catches all extensions
             try
             {
-                int coffeeType = int.Parse(Console.ReadLine());
+                Console.WriteLine("What quantity of coffee do you want (ml)?");
+                double quantity = Convert.ToDouble(Console.ReadLine());
+                
+
+                var priceList = new List<double>();
                 //instantiation of classes
                 var filtered = new FilteredCoffee();
                 var unfiltered = new Unfilteredcoffee();
+                var totalPrice = new TotalCoffeePrice();
 
-                if(coffeeType == 1)
-                {
-                    Console.WriteLine(filtered.ServeCoffee()); 
-                }
-                else if(coffeeType == 2)
-                {
-                    Console.WriteLine(unfiltered.ServeCoffee()); 
-                }
+                //initialization of amount
+                double filteredAmount = 100d;
+                double unfilteredAmount = 50d;
+                
+
+                
+
+                priceList.Add(filtered.ServeCoffee(quantity, filteredAmount));
+                priceList.Add(unfiltered.ServeCoffee(quantity, unfilteredAmount));
+
+                Console.WriteLine("The price for the filtered coffee is "+ filtered.ServeCoffee( quantity,filteredAmount));
+                Console.WriteLine("The price for the unfiltered coffee is " + unfiltered.ServeCoffee(quantity, unfilteredAmount));
+
+                Console.WriteLine("The total price for the coffee is "+totalPrice.CalPrice(priceList)); 
+
+               
             }
             catch(Exception ex)
             {
@@ -32,4 +43,5 @@
             }
         }
     }
+
 }

@@ -11,19 +11,45 @@ namespace open_and_close_coffee
     /// </summary>
     public abstract class Coffee
         {
-         public abstract string ServeCoffee();
+        public double Quantity { get; set; } 
+        public double Amount { get; set; }
+         public abstract double ServeCoffee(double quantity, double amount);
         }
     
    
+    
+    /// <summary>
+    /// this is the main class that is not open to modification
+    /// </summary>
+    public class TotalCoffeePrice
+    {
+        /// <summary>
+        /// this method sums up all of the coffee prices
+        /// </summary>
+        /// <param name="coffeePrice"></param>
+        /// <returns></returns>
+        public double CalPrice(List<double> coffeePrice)
+        {
+            double total = 0;
+            foreach(var coffee in coffeePrice)
+            {
+                total = total + coffee;
+            }
+            return total;
+        }
+    }
+
     /// <summary>
     /// this is a derived class that extend the base class
     /// it serves filterd coffee
     /// </summary>
     public class FilteredCoffee : Coffee
         {
-       public override string ServeCoffee()
-        {
-            return "Serving Filtered Coffee";
+       public override double ServeCoffee(double quantity, double amount)
+        {   
+            this.Quantity = quantity;
+            this.Amount = amount;
+            return quantity * amount;
         }
         }
 
@@ -34,9 +60,12 @@ namespace open_and_close_coffee
     /// </summary>
     public class Unfilteredcoffee : Coffee
         {
-        public override string ServeCoffee()
+        public override double ServeCoffee(double quantity, double amount)
         {
-            return "Serving Unfiltered Coffee";
+
+            this.Quantity = quantity;
+            this.Amount = amount;
+            return quantity * amount;
         }
     }
 }
